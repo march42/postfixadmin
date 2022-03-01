@@ -21,6 +21,10 @@
         "test-fixup": "mkdir -p templates_c ; test -f config.local.php || touch config.local.php",
         "psalm": "@php ./vendor/bin/psalm --no-cache --show-info=false "
     },
+	"__abandoned__deprecated__": {
+		"phpunit/php-token-stream": "is abandoned, you should avoid using it. No replacement was suggested.",
+		"webmozart/path-util": "is abandoned, you should avoid using it. Use symfony/filesystem instead."
+	},
     "require": {
         "php": ">=7.2",
         "postfixadmin/password-hashing": "^0.0.1"

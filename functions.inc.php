@@ -1623,10 +1623,10 @@ function db_connection_string()
             $dsn .= "unix_socket={$socket}";
         } else {
             $dsn .= "host={$CONF['database_host']}";
-        }
 
-        if (isset($CONF['database_port'])) {
-            $dsn .= ";port={$CONF['database_port']}";
+			if (isset($CONF['database_port'])) {
+				$dsn .= ";port={$CONF['database_port']}";
+			}
         }
 
         $dsn .= ";dbname={$database_name};charset=UTF8";

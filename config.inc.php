@@ -99,9 +99,21 @@ function language_hook($PALANG, $language) {
 // sqlite = SQLite 3
 $CONF['database_type'] = 'mysqli';
 $CONF['database_host'] = 'localhost';
-$CONF['database_user'] = 'postfix';
-$CONF['database_password'] = 'postfixadmin';
 $CONF['database_name'] = 'postfix';
+if (basename($_SERVER['SCRIPT_FILENAME'])=='setup.php') {
+	// the database privileges, to create and alter structure are needed for setup.php
+	// GRANT ALL PRIVILEGES ON `postfix`.* TO `postfix_dba`@`localhost`
+	$CONF['database_user'] = 'postfix_dba';
+	$CONF['database_password'] = 'even_stronger_and_more_secure_password';
+} else {
+	// the web UI itself needs permissions to alter the stored data
+	// GRANT SELECT, INSERT, UPDATE, DELETE ON `postfix`.* TO `postfixadmin`@`localhost`
+	$CONF['database_user'] = 'postfixadmin';
+	$CONF['database_password'] = 'postfixadmin_strong_password';
+}
+// a third user postfix is used for the postfix configuration files sql_*.cf
+// the postfix processes just need to read the data, without changing anything.
+// GRANT SELECT ON `postfix`.* TO `postfix`@`localhost`
 
 // Database SSL Config (PDO/MySQLi only)
 $CONF['database_use_ssl'] = false;
